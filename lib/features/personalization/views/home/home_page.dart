@@ -17,7 +17,6 @@ class Home extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        titleSpacing: 0.0,
       ),
       body: CardPage(),
     );
