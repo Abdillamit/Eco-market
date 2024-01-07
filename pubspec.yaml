@@ -18,6 +18,9 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   iconsax_flutter: ^1.0.0
   http: ^1.1.2
+  skeleton_text: ^3.0.1
+  flutter_blurhash: ^0.8.2
+  flutter_screenutil: ^5.9.0
 
 dev_dependencies:
   flutter_test:
@@ -32,7 +35,20 @@ flutter:
   assets:
     - assets/images/
 
-  # fonts:
+  fonts:
+    - family: TTNormsPro
+      fonts:
+        - asset: assets/fonts/TTNormsPro-Bold.ttf
+        - asset: assets/fonts/TTNormsPro-BoldItalic.ttf
+        - asset: assets/fonts/TTNormsPro-ExtraBold.ttf
+        - asset: assets/fonts/TTNormsPro-ExtraBoldItalic.ttf
+        - asset: assets/fonts/TTNormsPro-ExtraLightItalic.ttf
+        - asset: assets/fonts/TTNormsPro-Italic.ttf
+        - asset: assets/fonts/TTNormsPro-Light.ttf
+        - asset: assets/fonts/TTNormsPro-LightItalic.ttf
+        - asset: assets/fonts/TTNormsPro-Medium.ttf
+        - asset: assets/fonts/TTNormsPro-MediumItalic.ttf
+        - asset: assets/fonts/TTNormsPro-Regular.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

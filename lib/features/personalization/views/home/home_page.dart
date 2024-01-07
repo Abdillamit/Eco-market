@@ -1,24 +1,14 @@
-import 'package:eco_market/features/personalization/views/home/widgets/home_cards.dart';
-import 'package:eco_market/utils/constants/text_strings.dart';
+import 'package:eco_market/features/personalization/views/home/widgets/cards.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          ATexts.appBarTitle,
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: CardPage(),
+    return const Scaffold(
+      body: CardsPage(),
+      // bottomNavigationBar: BottomNavigation(),
     );
   }
 }
