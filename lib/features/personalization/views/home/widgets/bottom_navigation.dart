@@ -2,7 +2,10 @@ import 'package:eco_market/features/personalization/views/home/widgets/cards.dar
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _BottomNavigationState createState() => _BottomNavigationState();
 }
 

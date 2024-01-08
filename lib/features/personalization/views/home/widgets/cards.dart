@@ -1,24 +1,14 @@
 /*External dependencies */
 import 'dart:ui';
 
+import 'package:eco_market/bloc/card_bloc.dart';
 import 'package:eco_market/features/personalization/views/products/products.dart';
+import 'package:eco_market/modules/category_list.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/http/api_categorie_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 /*Local dependencies */
-
-class Category {
-  int? id;
-  String? image;
-  String? name;
-  Category({
-    this.id,
-    this.image,
-    this.name,
-  });
-
-  static fromJson(item) {}
-}
 
 class CardsPage extends StatefulWidget {
   const CardsPage({super.key});
@@ -29,8 +19,19 @@ class CardsPage extends StatefulWidget {
 
 class _ProductCategoriesState extends State<CardsPage> {
   int _currentindex = 0;
-  Future<List<Category>> fetchData() async {
-    return getCategories();
+  late CardsBloc _cardsBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _cardsBloc = CardsBloc(ApiCategoryList());
+    _cardsBloc.add(LoadCategoriesEvent());
+  }
+
+  @override
+  void dispose() {
+    _cardsBloc.close();
+    super.dispose();
   }
 
   @override
@@ -74,39 +75,35 @@ class _ProductCategoriesState extends State<CardsPage> {
       case 0:
         return Scaffold(
           appBar: AppBar(
-              centerTitle: true,
-              title: const Text(
-                ATexts.appBarTitle,
-                style: TextStyle(
-                  color: Color(0xFF1F1F1F),
-                  fontFamily: 'TTNormsPro',
-                  fontSize: 24.0,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w700,
-                  height: 1.0,
-                  fontFeatures: [
-                    FontFeature.disable('clig'),
-                    FontFeature.disable('liga'),
-                  ],
-                ),
-              )),
-          body: FutureBuilder(
-            future: getCategories(),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+            centerTitle: true,
+            title: const Text(
+              ATexts.appBarTitle,
+              style: TextStyle(
+                color: Color(0xFF1F1F1F),
+                fontFamily: 'TTNormsPro',
+                fontSize: 24.0,
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.w700,
+                height: 1.0,
+                fontFeatures: [
+                  FontFeature.disable('clig'),
+                  FontFeature.disable('liga'),
+                ],
+              ),
+            ),
+          ),
+          body: BlocBuilder<CardsBloc, CardsState>(
+            builder: (context, state) {
+              if (state is LoadingState) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (snapshot.hasError) {
+              } else if (state is ErrorState) {
                 return Center(
-                  child: Text('Error: ${snapshot.error}'),
+                  child: Text('Error: ${state.error}'),
                 );
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(
-                  child: Text('No categories found'),
-                );
-              } else {
+              } else if (state is LoadedState) {
+                print('Categories: гшщуравылтоцзйукш ${state.categories}');
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -114,8 +111,9 @@ class _ProductCategoriesState extends State<CardsPage> {
                     mainAxisSpacing: 16.0,
                   ),
                   padding: const EdgeInsets.all(16),
-                  itemCount: snapshot.data!.length,
+                  itemCount: state.categories.length,
                   itemBuilder: (context, index) {
+                    Category category = state.categories[index];
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -124,7 +122,7 @@ class _ProductCategoriesState extends State<CardsPage> {
                             builder: (context) => const Products(),
                             settings: RouteSettings(
                               arguments: {
-                                'categoryName': '${snapshot.data![index].name}',
+                                'categoryName': '${category.name}',
                               },
                             ),
                           ),
@@ -142,7 +140,7 @@ class _ProductCategoriesState extends State<CardsPage> {
                                   BlendMode.srcOver,
                                 ),
                                 child: Image.network(
-                                  '${snapshot.data![index].image}',
+                                  '${category.image}',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -151,7 +149,7 @@ class _ProductCategoriesState extends State<CardsPage> {
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Text(
-                              '${snapshot.data![index].name}',
+                              '${category.name}',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'TTNormsPro',
@@ -170,6 +168,10 @@ class _ProductCategoriesState extends State<CardsPage> {
                       ),
                     );
                   },
+                );
+              } else {
+                return const Center(
+                  child: Text('Unexpected state'),
                 );
               }
             },
