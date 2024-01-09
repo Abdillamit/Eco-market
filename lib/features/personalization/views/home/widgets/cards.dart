@@ -43,19 +43,19 @@ class _ProductCategoriesState extends State<CardsPage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home_filled),
-            label: 'Главная',
+            label: ATexts.bottomTitle1,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.badge),
-            label: 'Корзина',
+            label: ATexts.bottomTitle2,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.lock_clock),
-            label: 'История',
+            label: ATexts.bottomTitle3,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.question_mark_rounded),
-            label: 'Инфо',
+            label: ATexts.bottomTitle4,
           ),
         ],
         currentIndex: _currentindex,
@@ -103,7 +103,7 @@ class _ProductCategoriesState extends State<CardsPage> {
                   child: Text('Error: ${state.error}'),
                 );
               } else if (state is LoadedState) {
-                print('Categories: гшщуравылтоцзйукш ${state.categories}');
+                print('Categories: ${state.categories}');
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -113,7 +113,10 @@ class _ProductCategoriesState extends State<CardsPage> {
                   padding: const EdgeInsets.all(16),
                   itemCount: state.categories.length,
                   itemBuilder: (context, index) {
+                    print('Building category item at index $index');
                     Category category = state.categories[index];
+                    print('Category name: ${category.name}');
+                    print('Category image URL: ${category.image}');
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(

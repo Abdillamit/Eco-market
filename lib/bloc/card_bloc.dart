@@ -12,9 +12,10 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
     on<LoadCategoriesEvent>((event, emit) async {
       try {
         final categories = await api.getCategories();
-        print('Categories: dsiav[uafhd] ${categories}');
+        // print('Categories: ${categories}');
         emit(LoadedState(categories));
       } catch (error) {
+        print('Error fetching categories: $error');
         emit(ErrorState(error.toString()));
       }
     });
