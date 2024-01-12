@@ -1,4 +1,6 @@
 import 'package:eco_market/features/views/home/bloc/home_bloc.dart';
+import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
+import 'package:eco_market/features/views/products/products.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/http/api_categorie_list.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +47,15 @@ class _HomeState extends State<Home> {
         ),
         centerTitle: true,
       ),
-      body: BlocProvider(
-        create: (context) => _HomeBloc,
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider<ProductsBloc>(
+            create: (context) => ProductsBloc()..add(LoadProducts()),
+          ),
+          BlocProvider<HomeBloc>(
+            create: (context) => _HomeBloc,
+          ),
+        ],
         child: _buildBody(),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -96,7 +105,19 @@ class _HomeState extends State<Home> {
             itemCount: state.categories.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider.value(
+                        value: BlocProvider.of<ProductsBloc>(context),
+                        child: Products(
+                          categoryName: '${state.categories[index].name}',
+                        ),
+                      ),
+                    ),
+                  );
+                },
                 child: Stack(
                   alignment: Alignment.bottomLeft,
                   children: [
@@ -108,6 +129,7 @@ class _HomeState extends State<Home> {
                             Colors.black.withOpacity(0.3),
                             BlendMode.srcOver,
                           ),
+                          // cached_network_image
                           child: Image.network(
                             '${state.categories[index].image}',
                             fit: BoxFit.cover,
