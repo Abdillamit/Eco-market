@@ -4,43 +4,18 @@ abstract class ProductsState {
   const ProductsState();
 }
 
-class ProductsInitial extends ProductsState {
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is ProductsInitial;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
+class LoadingStateProducts extends ProductsState {
+  const LoadingStateProducts();
 }
 
-class ProductsLoaded extends ProductsState {
-  final List<String> products;
+class LoadedStateProducts extends ProductsState {
+  final List<Products> products;
 
-  const ProductsLoaded({required this.products});
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ProductsLoaded &&
-          runtimeType == other.runtimeType &&
-          listEquals(products, other.products);
-
-  @override
-  int get hashCode => products.hashCode;
+  LoadedStateProducts(this.products);
 }
 
-class ProductsFiltered extends ProductsState {
-  final List<String> products;
+class ErrorStateProducts extends ProductsState {
+  final String errorMessage;
 
-  const ProductsFiltered({required this.products});
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ProductsFiltered &&
-          runtimeType == other.runtimeType &&
-          listEquals(products, other.products);
-
-  @override
-  int get hashCode => products.hashCode;
+  ErrorStateProducts(this.errorMessage);
 }

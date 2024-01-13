@@ -1,33 +1,23 @@
-import 'package:flutter/foundation.dart';
+import 'package:eco_market/modules/products_list.dart';
+import 'package:eco_market/utils/http/api_products_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'products_event.dart';
 part 'products_state.dart';
 
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
-  List<String> allProducts = []; // Store all products here
-  List<String> filteredProducts = []; // Store filtered products here
+  final ApiProductsList api;
 
-  ProductsBloc() : super(ProductsInitial());
-
-  Future<List<String>> fetchAllProducts() async {
-    // Simulate fetching products from an API or database
-    await Future.delayed(Duration(seconds: 2)); // Simulating a delay
-    return ['Product 1', 'Product 2', 'Product 3'];
-  }
-
-  @override
-  Stream<ProductsState> mapEventToState(
-    ProductsEvent event,
-  ) async* {
-    if (event is LoadProducts) {
-      allProducts = await fetchAllProducts();
-      yield ProductsLoaded(products: allProducts);
-    } else if (event is FilterProductsByCategory) {
-      filteredProducts = allProducts
-          .where((product) => product.contains(event.categoryName))
-          .toList();
-      yield ProductsFiltered(products: filteredProducts);
-    }
+  ProductsBloc(this.api) : super(LoadingStateProducts()) {
+    on<FilterProductsByCategory>((event, emit) async {
+      try {
+        final products = await api.getProducts(event.categoryName);
+        // print('products ${products}');
+        emit(LoadedStateProducts(products));
+      } catch (error) {
+        // Оставьте комментарий, если вы хотите обрабатывать ошибку
+        emit(ErrorStateProducts(error.toString()));
+      }
+    });
   }
 }

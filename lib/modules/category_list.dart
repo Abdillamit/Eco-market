@@ -16,12 +16,4 @@ class Category {
       name: json['name'],
     );
   }
-
-  fromJsonMap(Map<String, dynamic> item) {
-    return Category(
-      id: item['id'],
-      image: item['image'],
-      name: item['name'],
-    );
-  }
 }

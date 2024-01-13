@@ -2,13 +2,13 @@ import 'package:eco_market/modules/category_list.dart';
 import 'package:eco_market/utils/http/api_categorie_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'home_state.dart';
-part 'home_event.dart';
+part 'category_state.dart';
+part 'category_event.dart';
 
-class HomeBloc extends Bloc<CardsEvent, CardsState> {
+class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final ApiCategoryList api;
 
-  HomeBloc(this.api) : super(LoadingState()) {
+  CategoryBloc(this.api) : super(LoadingState()) {
     on<LoadCategoriesEvent>((event, emit) async {
       try {
         final categories = await api.getCategories();

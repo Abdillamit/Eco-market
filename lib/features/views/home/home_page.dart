@@ -1,4 +1,5 @@
-import 'package:eco_market/features/views/home/bloc/home_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eco_market/features/views/home/bloc/category_bloc.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
 import 'package:eco_market/features/views/products/products.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
@@ -15,18 +16,18 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
-  late HomeBloc _HomeBloc;
+  late CategoryBloc _CategoryBloc;
 
   @override
   void initState() {
     super.initState();
-    _HomeBloc = HomeBloc(ApiCategoryList());
-    _HomeBloc.add(LoadCategoriesEvent());
+    _CategoryBloc = CategoryBloc(ApiCategoryList());
+    _CategoryBloc.add(LoadCategoriesEvent());
   }
 
   @override
   void dispose() {
-    _HomeBloc.close();
+    _CategoryBloc.close();
     super.dispose();
   }
 
@@ -47,16 +48,76 @@ class _HomeState extends State<Home> {
         ),
         centerTitle: true,
       ),
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider<ProductsBloc>(
-            create: (context) => ProductsBloc()..add(LoadProducts()),
-          ),
-          BlocProvider<HomeBloc>(
-            create: (context) => _HomeBloc,
-          ),
-        ],
-        child: _buildBody(),
+      body: BlocBuilder<CategoryBloc, CategoryState>(
+        builder: (context, state) {
+          if (state is LoadingState) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is ErrorState) {
+            return Center(child: Text('Error: ${state.error}'));
+          } else if (state is LoadedState) {
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16.0,
+                mainAxisSpacing: 16.0,
+              ),
+              padding: const EdgeInsets.all(16),
+              itemCount: state.categories.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                    onTap: () {
+                      context.read<ProductsBloc>().add(
+                            FilterProductsByCategory(
+                                categoryName:
+                                    '${state.categories[index].name}'),
+                          );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProductsPage()),
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.bottomLeft,
+                      children: [
+                        Positioned.fill(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: ColorFiltered(
+                                colorFilter: ColorFilter.mode(
+                                  Colors.black.withOpacity(0.3),
+                                  BlendMode.srcOver,
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      state.categories[index].image != null
+                                          ? state.categories[index].image!
+                                          : 'error img categories',
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            '${state.categories[index].name}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'TTNormsPro',
+                              fontSize: 20.0,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w700,
+                              height: 1.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ));
+              },
+            );
+          }
+          return Container();
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -84,81 +145,6 @@ class _HomeState extends State<Home> {
         showUnselectedLabels: true,
         onTap: _onItemTapped,
       ),
-    );
-  }
-
-  Widget _buildBody() {
-    return BlocBuilder<HomeBloc, CardsState>(
-      builder: (context, state) {
-        if (state is LoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is ErrorState) {
-          return Center(child: Text('Error: ${state.error}'));
-        } else if (state is LoadedState) {
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16.0,
-              mainAxisSpacing: 16.0,
-            ),
-            padding: const EdgeInsets.all(16),
-            itemCount: state.categories.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BlocProvider.value(
-                        value: BlocProvider.of<ProductsBloc>(context),
-                        child: Products(
-                          categoryName: '${state.categories[index].name}',
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                child: Stack(
-                  alignment: Alignment.bottomLeft,
-                  children: [
-                    Positioned.fill(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: ColorFiltered(
-                          colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.3),
-                            BlendMode.srcOver,
-                          ),
-                          // cached_network_image
-                          child: Image.network(
-                            '${state.categories[index].image}',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        '${state.categories[index].name}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'TTNormsPro',
-                          fontSize: 20.0,
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.w700,
-                          height: 1.0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-        return Container();
-      },
     );
   }
 

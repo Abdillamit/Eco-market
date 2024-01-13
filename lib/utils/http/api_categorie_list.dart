@@ -23,4 +23,6 @@ class ApiCategoryList {
       return [];
     }
   }
+
+  getProducts() {}
 }

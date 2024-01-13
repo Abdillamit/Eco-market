@@ -4,7 +4,8 @@ abstract class ProductsEvent {
   const ProductsEvent();
 }
 
-class LoadProducts extends ProductsEvent {}
+class LoadProductsEvent extends ProductsEvent {}
+
 
 class FilterProductsByCategory extends ProductsEvent {
   final String categoryName;
