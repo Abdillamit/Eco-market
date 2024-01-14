@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eco_market/features/views/home/bloc/category_bloc.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
-import 'package:eco_market/features/views/products/products.dart';
+import 'package:eco_market/features/views/products/products_page.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/http/api_categorie_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class _HomeState extends State<Home> {
       body: BlocBuilder<CategoryBloc, CategoryState>(
         builder: (context, state) {
           if (state is LoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return _buildShimmerGridView();
           } else if (state is ErrorState) {
             return Center(child: Text('Error: ${state.error}'));
           } else if (state is LoadedState) {
@@ -65,54 +66,56 @@ class _HomeState extends State<Home> {
               itemCount: state.categories.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                    onTap: () {
-                      context.read<ProductsBloc>().add(
-                            FilterProductsByCategory(
-                                categoryName:
-                                    '${state.categories[index].name}'),
-                          );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProductsPage()),
-                      );
-                    },
-                    child: Stack(
-                      alignment: Alignment.bottomLeft,
-                      children: [
-                        Positioned.fill(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: ColorFiltered(
-                                colorFilter: ColorFilter.mode(
-                                  Colors.black.withOpacity(0.3),
-                                  BlendMode.srcOver,
-                                ),
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      state.categories[index].image != null
-                                          ? state.categories[index].image!
-                                          : 'error img categories',
-                                  fit: BoxFit.cover,
-                                )),
+                  onTap: () {
+                    context.read<ProductsBloc>().add(
+                          FilterProductsByCategory(
+                            categoryName: '${state.categories[index].name}',
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            '${state.categories[index].name}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'TTNormsPro',
-                              fontSize: 20.0,
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.w700,
-                              height: 1.0,
+                        );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProductsPage(),
+                      ),
+                    );
+                  },
+                  child: Stack(
+                    alignment: Alignment.bottomLeft,
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              Colors.black.withOpacity(0.3),
+                              BlendMode.srcOver,
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: state.categories[index].image != null
+                                  ? state.categories[index].image!
+                                  : 'error img categories',
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                      ],
-                    ));
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          '${state.categories[index].name}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'TTNormsPro',
+                            fontSize: 20.0,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.w700,
+                            height: 1.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               },
             );
           }
@@ -144,6 +147,30 @@ class _HomeState extends State<Home> {
         unselectedFontSize: 14,
         showUnselectedLabels: true,
         onTap: _onItemTapped,
+      ),
+    );
+  }
+
+  Widget _buildShimmerGridView() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 16.0,
+        ),
+        padding: const EdgeInsets.all(16),
+        itemCount: 6, // Предполагаемое количество элементов в вашем GridView
+        itemBuilder: (context, index) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+          );
+        },
       ),
     );
   }

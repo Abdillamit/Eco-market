@@ -24,9 +24,9 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
         theme: AAppTheme.lightTheme,
-        darkTheme: AAppTheme.darkTheme,
+        darkTheme: AAppTheme.lightTheme,
         home: const Home(),
       ),
     );

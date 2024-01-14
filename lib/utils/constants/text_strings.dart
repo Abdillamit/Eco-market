@@ -8,4 +8,8 @@ class ATexts {
   static const String bottomTitle2 = "Корзина";
   static const String bottomTitle3 = "История";
   static const String bottomTitle4 = "Инфо";
+
+  // Search texts
+  static const String searchTextProduct = "Быстрый поиск";
+
 }

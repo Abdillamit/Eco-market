@@ -4,6 +4,14 @@ abstract class ProductsState {
   const ProductsState();
 }
 
+class SearchState extends ProductsState {
+  final List cards;
+
+  SearchState({
+    this.cards = const [],
+  });
+}
+
 class LoadingStateProducts extends ProductsState {
   const LoadingStateProducts();
 }
