@@ -1,4 +1,6 @@
+import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Input extends StatelessWidget {
   const Input({
@@ -26,6 +28,9 @@ class Input extends StatelessWidget {
         color: backgroundColor,
       ),
       child: TextField(
+        onChanged: (value) {
+          context.read<ProductsBloc>().add(SearchCardEvent(query: value));
+        },
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: const TextStyle(

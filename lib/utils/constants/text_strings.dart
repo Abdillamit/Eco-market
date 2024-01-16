@@ -12,4 +12,8 @@ class ATexts {
   // Search texts
   static const String searchTextProduct = "Быстрый поиск";
 
+
+  // Products Card Texts
+  static const String productCardTitle = "Добавить";
+
 }

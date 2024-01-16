@@ -1,33 +1,44 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
-  const Button({
+class CustomButton extends StatelessWidget {
+  const CustomButton({
     Key? key,
-    required this.backgroundColor,
-    required this.text,
-    required this.colorText,
-    this.onPressed,
+    required this.onPressed,
+    this.buttonColor = const Color(0xFF75DB1B),
+    this.textColor = const Color(0xFFFFFFFF),
+    this.buttonText,
   }) : super(key: key);
 
-  final Color backgroundColor, colorText;
-  final String text;
-  final VoidCallback? onPressed;
+  static const EdgeInsetsGeometry buttonPadding = EdgeInsets.all(10.0);
+
+  final VoidCallback onPressed;
+  final String? buttonText;
+  final Color buttonColor;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      style: TextButton.styleFrom(
-        minimumSize: const Size(303, 0),
-        padding: const EdgeInsets.all(15),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(buttonColor),
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(buttonPadding),
+        shape: MaterialStateProperty.all<OutlinedBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
         ),
-        backgroundColor: backgroundColor,
       ),
       child: Text(
-        text,
-        style: TextStyle(color: colorText),
+        buttonText!,
+        style: TextStyle(
+          color: textColor,
+          fontFamily: 'TTNormsPro',
+          fontSize: 16.0,
+          fontStyle: FontStyle.normal,
+          fontWeight: FontWeight.w500,
+          height: 1.0,
+        ),
       ),
     );
   }

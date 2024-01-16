@@ -26,4 +26,26 @@ class ApiProductsList {
       return [];
     }
   }
+
+  Future<List<Products>> getProducBySearch(String query) async {
+    String url = 'https://neobook.online/ecobak/product-list/?search=$query';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        List<dynamic> responseData =
+            json.decode(utf8.decode(response.bodyBytes));
+        List<Products> products = responseData
+            .map((json) => Products.fromJson(json as Map<String, dynamic>))
+            .toList();
+        return products;
+      } else {
+        throw Exception('Failed to load data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error while fetching products: $error');
+      return [];
+    }
+  }
 }

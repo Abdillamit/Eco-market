@@ -9,7 +9,7 @@ class LoadProductsEvent extends ProductsEvent {}
 class SearchCardEvent extends ProductsEvent {
   final String query;
 
-  SearchCardEvent(this.query);
+  SearchCardEvent({required this.query});
 }
 
 class FilterProductsByCategory extends ProductsEvent {

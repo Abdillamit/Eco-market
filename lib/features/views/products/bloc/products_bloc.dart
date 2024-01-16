@@ -12,7 +12,15 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     on<FilterProductsByCategory>((event, emit) async {
       try {
         final products = await api.getProducts(event.categoryName);
-        // print('products ${products}');
+        emit(LoadedStateProducts(products));
+      } catch (error) {
+        emit(ErrorStateProducts(error.toString()));
+      }
+    });
+
+    on<SearchCardEvent>((event, emit) async {
+      try {
+        final products = await api.getProducBySearch(event.query);
         emit(LoadedStateProducts(products));
       } catch (error) {
         emit(ErrorStateProducts(error.toString()));
