@@ -1,7 +1,8 @@
 class ATexts {
-  // -- GLOBAL Texts
+  // -- AppBar Texts
   static const String appBarTitle = "Эко-Маркет";
   static const String appBarTitleProduct = "Продукты";
+  static const String appBarTitleBasket = "Корзина";
 
   // Bottom Navigation Texts
   static const String bottomTitle1 = "Главная";
@@ -12,8 +13,6 @@ class ATexts {
   // Search texts
   static const String searchTextProduct = "Быстрый поиск";
 
-
   // Products Card Texts
   static const String productCardTitle = "Добавить";
-
 }

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eco_market/features/views/home/widgets/buttom_nagigation.dart';
 import 'package:eco_market/features/views/home/bloc/category_bloc.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
 import 'package:eco_market/features/views/products/products_page.dart';
@@ -18,7 +19,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex = 0;
   late CategoryBloc _CategoryBloc;
 
   @override
@@ -176,38 +176,7 @@ class _HomeState extends State<Home> {
           return Container();
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: ATexts.bottomTitle1,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.badge),
-            label: ATexts.bottomTitle2,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lock_clock),
-            label: ATexts.bottomTitle3,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.question_mark_rounded),
-            label: ATexts.bottomTitle4,
-          ),
-        ],
-        currentIndex: _currentIndex,
-        selectedItemColor: const Color(0xFF75DB1B),
-        unselectedItemColor: const Color(0xFFD2D1D5),
-        unselectedFontSize: 14,
-        showUnselectedLabels: true,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: const NavigationExample(),
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
   }
 }

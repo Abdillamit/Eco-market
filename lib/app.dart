@@ -1,6 +1,8 @@
+import 'package:eco_market/features/views/basket/basket.dart';
 import 'package:eco_market/features/views/home/bloc/category_bloc.dart';
 import 'package:eco_market/features/views/home/home_page.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
+import 'package:eco_market/features/views/products/products_page.dart';
 import 'package:eco_market/utils/http/api_categorie_list.dart';
 import 'package:eco_market/utils/http/api_products_list.dart';
 import 'package:eco_market/utils/theme/theme.dart';
@@ -27,7 +29,7 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.light,
         theme: AAppTheme.lightTheme,
         darkTheme: AAppTheme.lightTheme,
-        home: const Home(),
+        home: const Basket(),
       ),
     );
   }
