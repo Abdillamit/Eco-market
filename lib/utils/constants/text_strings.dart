@@ -15,4 +15,7 @@ class ATexts {
 
   // Products Card Texts
   static const String productCardTitle = "Добавить";
+
+  //  Card Texts
+  static const String basketTitle = "Корзина";
 }
