@@ -1,8 +1,6 @@
 import 'package:eco_market/features/views/home/bloc/category_bloc.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
 import 'package:eco_market/features/views/products/widgets/products_grid.dart';
-import 'package:eco_market/modules/products_list.dart';
-import 'package:eco_market/ui/button.dart';
 import 'package:eco_market/ui/input.dart';
 import 'package:eco_market/ui/shimmer_widgets.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
