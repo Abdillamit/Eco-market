@@ -1,5 +1,6 @@
-import 'package:eco_market/features/views/home/bloc/category_bloc.dart';
+import 'package:eco_market/features/views/basket/basket.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
+import 'package:eco_market/features/views/products/widgets/category.dart';
 import 'package:eco_market/features/views/products/widgets/products_grid.dart';
 import 'package:eco_market/ui/input.dart';
 import 'package:eco_market/ui/shimmer_widgets.dart';
@@ -45,70 +46,7 @@ class ProductsPage extends StatelessWidget {
                     borderRadius: 16.0,
                   ),
                   const SizedBox(height: 16),
-                  BlocBuilder<CategoryBloc, CategoryState>(
-                    builder: (context, state) {
-                      if (state is LoadingState) {
-                        return const ShimmerCategories();
-                      } else if (state is LoadedState) {
-                        return SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              for (int i = 0; i < state.categories.length; i++)
-                                GestureDetector(
-                                  onTap: () {
-                                    context.read<ProductsBloc>().add(
-                                          FilterProductsByCategory(
-                                            categoryName:
-                                                '${state.categories[i].name}',
-                                          ),
-                                        );
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.all(8),
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10,
-                                      horizontal: 18,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: state.categories[i].name ==
-                                              state.categories[i].name
-                                          ? const Color(0xFF75DB1B)
-                                          : Colors.white,
-                                      borderRadius: BorderRadius.circular(18),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          blurRadius: 1.0,
-                                          color: Colors.grey,
-                                        )
-                                      ],
-                                    ),
-                                    child: Text(
-                                      state.categories[i].name ??
-                                          'DefaultCategory',
-                                      style: TextStyle(
-                                        color: i == state.categories
-                                            ? const Color(0xFF75DB1B)
-                                            : Colors.white,
-                                        fontFamily: 'TTNormsPro',
-                                        fontSize: 16.0,
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.w500,
-                                        height: 1.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        );
-                      } else if (state is ErrorState) {
-                        return Text('Error: ${state.error}');
-                      } else {
-                        return const Text('Unknown state');
-                      }
-                    },
-                  ),
+                  const CategoryBar(),
                   const SizedBox(height: 24),
                   BlocBuilder<ProductsBloc, ProductsState>(
                     builder: (context, state) {
@@ -133,48 +71,12 @@ class ProductsPage extends StatelessWidget {
               height: 48,
               child: ElevatedButton(
                 onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return DraggableScrollableSheet(
-                        expand: false,
-                        initialChildSize: 0.9,
-                        minChildSize: 0.2,
-                        maxChildSize: 1,
-                        builder: (BuildContext context,
-                            ScrollController scrollController) {
-                          return SingleChildScrollView(
-                            controller: scrollController,
-                            child: Container(
-                              margin: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        height: 208.0,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                          color: const Color(0xFFF8F8F8),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                // products[index].image ??
-                                                'placeholder_url'),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Basket(
+                              products: [],
+                            )),
                   );
                 },
                 child: const Text(ATexts.basketTitle),

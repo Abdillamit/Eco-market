@@ -6,3 +6,9 @@ sealed class BasketEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class AddToBasketEvent extends BasketEvent {
+  final products;
+
+  AddToBasketEvent({required this.products});
+}
