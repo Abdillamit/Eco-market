@@ -1,6 +1,7 @@
 import 'package:eco_market/features/views/products/widgets/card.dart';
 import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/ui/button.dart';
+import 'package:eco_market/utils/constants/sizes.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,9 @@ class ProductsGrid extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  const SizedBox(height: 16),
+                                  const SizedBox(
+                                    height: ASizes.cardRadiusLg,
+                                  ),
                                   Text(
                                     products[index].description ??
                                         'Unknown Product',

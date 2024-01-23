@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eco_market/features/views/basket/bloc/basket_bloc.dart';
 import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/ui/button.dart';
 import 'package:eco_market/ui/shimmer_widgets.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCart extends StatelessWidget {
   const ProductCart({Key? key, required this.product}) : super(key: key);
@@ -80,7 +82,15 @@ class ProductCart extends StatelessWidget {
                     SizedBox(
                       width: 158,
                       child: CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final cartBloc = context.read<CartBloc>();
+                          cartBloc.add(AddToCart(product));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text('Product add to cart'),
+                            duration: Duration(seconds: 2),
+                          ));
+                        },
                         buttonText: ATexts.productCardTitle,
                       ),
                     )

@@ -1,3 +1,4 @@
+import 'package:eco_market/features/views/basket/bloc/basket_bloc.dart';
 import 'package:eco_market/features/views/home/bloc/category_bloc.dart';
 import 'package:eco_market/features/views/home/home_page.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
@@ -21,6 +22,7 @@ class App extends StatelessWidget {
         BlocProvider<ProductsBloc>(
           create: (context) => ProductsBloc(ApiProductsList()),
         ),
+        BlocProvider(create: (context) => CartBloc())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

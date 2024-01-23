@@ -1,8 +1,9 @@
 class ATexts {
   // -- AppBar Texts
   static const String appBarTitle = "Эко-Маркет";
-  static const String appBarTitleProduct = "Продукты";
-  static const String appBarTitleBasket = "Корзина";
+  static const String appBarTitleProductTitle = "Продукты";
+  static const String appBarTitleBasketTitle = "Корзина";
+  static const String appBarStoryTitle = "История заказов";
 
   // Bottom Navigation Texts
   static const String bottomTitle1 = "Главная";
@@ -18,4 +19,7 @@ class ATexts {
 
   //  Card Texts
   static const String basketTitle = "Корзина";
+
+  // Bsket Epty
+  static const String basketEptyTitle = 'У вас нет заказа';
 }

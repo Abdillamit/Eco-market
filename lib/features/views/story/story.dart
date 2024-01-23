@@ -1,15 +1,15 @@
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 
-class Info extends StatelessWidget {
-  const Info({super.key});
+class Story extends StatelessWidget {
+  const Story({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          ATexts.bottomTitle4,
+          ATexts.appBarStoryTitle,
           style: TextStyle(
             fontFamily: 'TTNormsPro',
             fontSize: 18.0,
@@ -19,9 +19,6 @@ class Info extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(ATexts.bottomTitle4),
       ),
     );
   }

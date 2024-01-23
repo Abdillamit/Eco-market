@@ -7,7 +7,6 @@ part 'products_state.dart';
 
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   final ApiProductsList api;
-
   ProductsBloc(this.api) : super(const LoadingStateProducts()) {
     on<FilterProductsByCategory>((event, emit) async {
       try {

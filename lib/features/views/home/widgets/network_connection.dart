@@ -1,5 +1,6 @@
 import 'package:eco_market/ui/button.dart';
 import 'package:eco_market/utils/constants/image_strings.dart';
+import 'package:eco_market/utils/constants/sizes.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class NetworkConnection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(AImages.networkError),
-          const SizedBox(height: 16),
+          const SizedBox(height: ASizes.cardRadiusLg),
           const Text(
             'Отсутствует интернет  соединение',
             textAlign: TextAlign.center,
