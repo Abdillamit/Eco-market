@@ -78,33 +78,47 @@ class BasketBottom extends StatelessWidget {
                             padding: const EdgeInsets.all(0),
                             child: Row(
                               children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      state.cartItems[index].name ??
-                                          'Unknown Product',
-                                      style: const TextStyle(
-                                        fontFamily: 'TTNormsPro',
-                                        fontSize: 14.0,
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.w500,
-                                        height: 1.0,
+                                Center(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        state.cartItems[index].name ??
+                                            'Unknown Product',
+                                        style: const TextStyle(
+                                          fontFamily: 'TTNormsPro',
+                                          fontSize: 14.0,
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.0,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 24),
-                                    Text(
-                                      '${(removeTrailingZeros(state.cartItems[index].price ?? 'error'))}c',
-                                      style: const TextStyle(
-                                        color: Color(0xFF75DB1B),
-                                        textBaseline: TextBaseline.ideographic,
-                                        fontFamily: 'TTNormsPro',
-                                        fontSize: 20.0,
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.w700,
-                                        height: 1.0,
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Цена ${(removeTrailingZeros(state.cartItems[index].price ?? 'error'))} c за шт',
+                                        style: const TextStyle(
+                                          fontFamily: 'TTNormsPro',
+                                          fontSize: 14.0,
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.0,
+                                        ),
                                       ),
-                                    )
-                                  ],
+                                      const SizedBox(height: 24),
+                                      Text(
+                                        '${(removeTrailingZeros(state.cartItems[index].price ?? 'error'))}c',
+                                        style: const TextStyle(
+                                          color: Color(0xFF75DB1B),
+                                          textBaseline:
+                                              TextBaseline.ideographic,
+                                          fontFamily: 'TTNormsPro',
+                                          fontSize: 20.0,
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.0,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(width: 40),
                                 CustomButton(

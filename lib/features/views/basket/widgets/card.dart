@@ -1,15 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eco_market/features/views/basket/bloc/basket_bloc.dart';
-import 'package:eco_market/ui/button.dart';
+import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/utils/constants/image_strings.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CardBasket extends StatelessWidget {
+// ignore: must_be_immutable
+class CardBasket extends StatefulWidget {
   const CardBasket({super.key});
+  @override
+  State<CardBasket> createState() => _CardBasketState();
+}
 
+class _CardBasketState extends State<CardBasket> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartBloc, CartState>(
@@ -110,9 +115,52 @@ class CardBasket extends StatelessWidget {
                                   ],
                                 ),
                                 const SizedBox(width: 20),
-                                CustomButton(
-                                  onPressed: () {},
-                                  buttonText: ATexts.productCardTitle,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: const Color(0xFF75DB1B),
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          context.read<CartBloc>().add(
+                                                DecrementProduct(
+                                                    state.cartItems[index]),
+                                              );
+                                        },
+                                        child: const Icon(
+                                          Icons.remove,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 15),
+                                    Text('${state.cartItems[index].quantity}'),
+                                    const SizedBox(width: 15),
+                                    Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: const Color(0xFF75DB1B),
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          context.read<CartBloc>().add(
+                                                IncrimentProduct(
+                                                    state.cartItems[index]),
+                                              );
+                                        },
+                                        child: const Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

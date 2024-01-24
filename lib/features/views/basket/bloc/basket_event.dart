@@ -12,9 +12,16 @@ class AddToCart extends CartEvent {
   List<Object> get props => [products];
 }
 
-// class DeleToCartEvent extends CartEvent {
-//   final Products products;
-//   DeleToCartEvent({required this.products});
-//   @override
-//   List<Object> get props => [products];
-// }
+class IncrimentProduct extends CartEvent {
+  final Products products;
+  IncrimentProduct(this.products);
+  @override
+  List<Object> get props => [products];
+}
+
+class DecrementProduct extends CartEvent {
+  final Products products;
+  DecrementProduct(this.products);
+  @override
+  List<Object> get props => [products];
+}
