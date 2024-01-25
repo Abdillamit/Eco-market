@@ -9,8 +9,8 @@ part 'basket_state.dart';
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartState([])) {
     on<CartEvent>(_mapEventToState);
-    on<IncrimentProduct>(_IncrimentEvent);
-    on<DecrementProduct>(_DecrementEvent);
+    on<IncrimentProduct>(_incrimentEvent);
+    on<DecrementProduct>(_decrementEvent);
   }
   Future<void> _mapEventToState(
       CartEvent event, Emitter<CartState> emit) async {
@@ -21,21 +21,20 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _IncrimentEvent(
+  Future<void> _incrimentEvent(
       IncrimentProduct event, Emitter<CartState> emit) async {
-    if (event is IncrimentProduct) {
-      final incrimentEv = List<Products>.from(state.cartItems)
-        ..add(event.products);
-      emit(CartState(incrimentEv));
-    }
+    final incrimentEv = List<Products>.from(state.cartItems)
+      ..add(event.products);
+    // if (incrimentEv == incrimentEv) {
+    //   state.cartItems[].quantity++;
+    // }
+    emit(CartState(incrimentEv));
   }
 
-  Future<void> _DecrementEvent(
+  Future<void> _decrementEvent(
       DecrementProduct event, Emitter<CartState> emit) async {
-    if (event is DecrementProduct) {
-      final decrementEv = List<Products>.from(state.cartItems);
-      decrementEv.remove(event.products);
-      emit(CartState(decrementEv));
-    }
+    final decrementEv = List<Products>.from(state.cartItems);
+    decrementEv.remove(event.products);
+    emit(CartState(decrementEv));
   }
 }

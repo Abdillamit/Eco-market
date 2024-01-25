@@ -1,5 +1,4 @@
 import 'package:eco_market/features/views/basket/widgets/card.dart';
-import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 
