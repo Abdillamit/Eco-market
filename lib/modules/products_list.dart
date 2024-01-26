@@ -28,4 +28,16 @@ class Products {
       price: json['price'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'image': image,
+      'title': name,
+      'description': description,
+      'category': category,
+      'quantity': quantity,
+      'price': price,
+    };
+  }
 }

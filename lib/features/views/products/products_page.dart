@@ -1,13 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:eco_market/features/views/basket/bloc/basket_bloc.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
 import 'package:eco_market/features/views/products/widgets/basket_bottom.dart';
 import 'package:eco_market/features/views/products/widgets/category.dart';
 import 'package:eco_market/features/views/products/widgets/products_grid.dart';
+import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/ui/input.dart';
 import 'package:eco_market/ui/shimmer_widgets.dart';
 import 'package:eco_market/utils/constants/sizes.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
+import 'package:eco_market/utils/helpers/helper.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsPage extends StatelessWidget {
   const ProductsPage({Key? key}) : super(key: key);
@@ -94,12 +97,12 @@ class ProductsPage extends StatelessWidget {
                   color: const Color(0xFF75DB1B),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.shopping_basket, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text(
+                    const Icon(Icons.shopping_basket, color: Colors.white),
+                    const SizedBox(width: 8),
+                    const Text(
                       ATexts.basketTitle,
                       style: TextStyle(
                         color: Colors.white,
@@ -110,17 +113,36 @@ class ProductsPage extends StatelessWidget {
                         letterSpacing: 0.0,
                       ),
                     ),
-                    SizedBox(width: 8),
-                    Text(
-                      '123c',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'TT Norms Pro',
-                        fontSize: 16.0,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.0,
-                      ),
+                    const SizedBox(width: 8),
+                    BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        if (state.cartItems.isNotEmpty) {
+                          Products product = state.cartItems[0];
+                          return Text(
+                            '${(removeTrailingZeros(product.price ?? 'error'))} c',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'TT Norms Pro',
+                              fontSize: 16.0,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.0,
+                            ),
+                          );
+                        } else {
+                          return const Text(
+                            '0 c',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'TT Norms Pro',
+                              fontSize: 16.0,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.0,
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),

@@ -16,6 +16,7 @@ class ATexts {
 
   // Products Card Texts
   static const String productCardTitle = "Добавить";
+  static const String basketButtonText = "Оформить заказ";
 
   //  Card Texts
   static const String basketTitle = "Корзина";

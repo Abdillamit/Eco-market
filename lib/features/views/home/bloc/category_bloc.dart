@@ -12,7 +12,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<LoadCategoriesEvent>((event, emit) async {
       try {
         final categories = await api.getCategories();
-        // print('Categories: dsiav[uafhd] ${categories}');
         emit(LoadedState(categories));
       } catch (error) {
         emit(ErrorState(error.toString()));
