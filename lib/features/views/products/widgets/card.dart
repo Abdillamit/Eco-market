@@ -75,25 +75,70 @@ class ProductCart extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             height: 1.0,
                           ),
-                        )
+                        ),
                       ],
                     ),
                     const SizedBox(height: 5),
-                    SizedBox(
-                      width: 158,
-                      child: CustomButton(
-                        onPressed: () {
-                          final cartBloc = context.read<CartBloc>();
-                          cartBloc.add(AddToCart(product));
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text('Product add to cart'),
-                            duration: Duration(seconds: 2),
-                          ));
-                        },
-                        buttonText: ATexts.productCardTitle,
+                    if (product.quantity! <= 0)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: const Color(0xFF75DB1B),
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<CartBloc>().add(
+                                      DecrementProduct(
+                                        product,
+                                      ),
+                                    );
+                              },
+                              child: const Icon(
+                                Icons.remove,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 15),
+                          Text('${product.quantity}'),
+                          const SizedBox(width: 15),
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: const Color(0xFF75DB1B),
+                            ),
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      SizedBox(
+                        width: 158,
+                        child: CustomButton(
+                          onPressed: () {
+                            final cartBloc = context.read<CartBloc>();
+                            cartBloc.add(AddToCart(product));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Product added to cart'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          },
+                          buttonText: ATexts.productCardTitle,
+                        ),
                       ),
-                    )
                   ],
                 ),
               ),
