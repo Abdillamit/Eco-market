@@ -23,4 +23,11 @@ class ATexts {
 
   // Bsket Epty
   static const String basketEptyTitle = 'У вас нет заказа';
+
+  // Info Text
+  static const String infoSubText =
+      'Фрукты, овощи, зелень, сухофрукты а так же сделанные из натуральных ЭКО продуктов (варенье, салаты, соления, компоты и т.д.) можете заказать удобно, качественно и по доступной цене.Готовы сотрудничать взаимовыгодно с магазинами.Наши цены как на рынке.Мы заинтересованы в экономии ваших денег и времени.Стоимость доставки 150 сом и ещё добавлен для окраину города.При отказе подтвержденного заказа более 2-х раз Клиент заносится в чёрный список!!';
+  static const String infoButtonText1 = 'Позвонить';
+  static const String infoButtonText2 = 'WhatsApp';
+  static const String infoButtonText3 = 'Instagram';
 }

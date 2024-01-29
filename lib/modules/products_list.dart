@@ -6,16 +6,17 @@ class Products {
   int? category;
   int? quantity;
   String? price;
+  double? totalSum;
 
-  Products({
-    this.id,
-    this.image,
-    this.name,
-    this.description,
-    this.category,
-    this.quantity,
-    this.price,
-  });
+  Products(
+      {this.id,
+      this.image,
+      this.name,
+      this.description,
+      this.category,
+      this.quantity,
+      this.price,
+      this.totalSum});
 
   factory Products.fromJson(Map<String, dynamic> json) {
     return Products(

@@ -79,7 +79,7 @@ class ProductCart extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    if (product.quantity! <= 0)
+                    if (product.quantity! > 1)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [

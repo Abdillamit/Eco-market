@@ -36,7 +36,8 @@ class BasketBottom extends StatelessWidget {
                   ],
                 ),
               );
-            } else {
+            }
+            else {
               return Column(
                 children: [
                   CardBasket(
@@ -53,6 +54,7 @@ class BasketBottom extends StatelessWidget {
                             const Text('Сумма'),
                             Text(
                               calculateTotalSum(state.cartItems),
+                              // state.cartItems[index].totalSum ,
                               style: const TextStyle(
                                 color: Colors.black,
                                 textBaseline: TextBaseline.ideographic,
