@@ -79,7 +79,24 @@ class ProductCart extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    if (product.quantity! > 1)
+                    if (product.quantity! <= 1)
+                      SizedBox(
+                        width: 158,
+                        child: CustomButton(
+                          onPressed: () {
+                            final cartBloc = context.read<CartBloc>();
+                            cartBloc.add(AddToCart(product));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Product added to cart'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          },
+                          buttonText: ATexts.productCardTitle,
+                        ),
+                      )
+                    else
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -104,7 +121,7 @@ class ProductCart extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 15),
-                          Text('${product.quantity}'),
+                          // Text('$product'),
                           const SizedBox(width: 15),
                           Container(
                             padding: const EdgeInsets.all(4),
@@ -113,7 +130,13 @@ class ProductCart extends StatelessWidget {
                               color: const Color(0xFF75DB1B),
                             ),
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                context.read<CartBloc>().add(
+                                      IncrimentProduct(
+                                        product,
+                                      ),
+                                    );
+                              },
                               child: const Icon(
                                 Icons.add,
                                 color: Colors.white,
@@ -122,23 +145,6 @@ class ProductCart extends StatelessWidget {
                           ),
                         ],
                       )
-                    else
-                      SizedBox(
-                        width: 158,
-                        child: CustomButton(
-                          onPressed: () {
-                            final cartBloc = context.read<CartBloc>();
-                            cartBloc.add(AddToCart(product));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Product added to cart'),
-                                duration: Duration(seconds: 2),
-                              ),
-                            );
-                          },
-                          buttonText: ATexts.productCardTitle,
-                        ),
-                      ),
                   ],
                 ),
               ),

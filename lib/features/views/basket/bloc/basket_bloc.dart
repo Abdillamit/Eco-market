@@ -33,8 +33,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
               (updatedCart[existingProductIndex].quantity ?? 0) + 1;
           updatedCart[existingProductIndex].totalSum =
               (updatedCart[existingProductIndex].quantity ?? 0) * priceValue;
-
-          print(updatedCart[existingProductIndex].totalSum);
         }
       } else {
         updatedCart.add(event.products);

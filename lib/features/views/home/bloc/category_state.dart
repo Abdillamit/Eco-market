@@ -6,8 +6,25 @@ class LoadingState extends CategoryState {}
 
 class LoadedState extends CategoryState {
   final List<Category> categories;
+  final int selectedCategoryIndex;
 
-  LoadedState(this.categories);
+  LoadedState({
+    required this.categories,
+    required this.selectedCategoryIndex,
+  });
+
+  LoadedState copyWith({
+    List<Category>? categories,
+    int? selectedCategoryIndex,
+  }) {
+    return LoadedState(
+      categories: categories ?? this.categories,
+      selectedCategoryIndex:
+          selectedCategoryIndex ?? this.selectedCategoryIndex,
+    );
+  }
+
+  List<Object> get props => [categories, selectedCategoryIndex];
 }
 
 class ErrorState extends CategoryState {

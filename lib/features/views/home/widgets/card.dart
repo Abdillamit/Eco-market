@@ -30,6 +30,7 @@ class CardCategorys extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
+                  context.read<CategoryBloc>().add(SelectCategoryEvent(index));
                   context.read<ProductsBloc>().add(
                         FilterProductsByCategory(
                           categoryName: '${state.categories[index].name}',

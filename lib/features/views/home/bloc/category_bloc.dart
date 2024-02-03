@@ -12,9 +12,16 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<LoadCategoriesEvent>((event, emit) async {
       try {
         final categories = await api.getCategories();
-        emit(LoadedState(categories));
+        emit(LoadedState(categories: categories, selectedCategoryIndex: 0));
       } catch (error) {
         emit(ErrorState(error.toString()));
+      }
+    });
+
+    on<SelectCategoryEvent>((event, emit) {
+      if (state is LoadedState) {
+        emit((state as LoadedState)
+            .copyWith(selectedCategoryIndex: event.index));
       }
     });
   }

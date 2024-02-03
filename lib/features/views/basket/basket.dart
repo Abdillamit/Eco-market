@@ -116,7 +116,7 @@ class Basket extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Итого'),
+                              const Text('Итого'),
                               Text(
                                 calculateTotalAmount(state.cartItems),
                                 style: const TextStyle(
