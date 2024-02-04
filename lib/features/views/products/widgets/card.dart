@@ -25,12 +25,9 @@ class ProductCart extends StatelessWidget {
           padding: const EdgeInsets.all(3),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 166.0,
                 height: 100.0,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFF8F8F8),
-                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
                   child: CachedNetworkImage(
@@ -121,7 +118,7 @@ class ProductCart extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 15),
-                          // Text('$product'),
+                          Text('${product.quantity}'),
                           const SizedBox(width: 15),
                           Container(
                             padding: const EdgeInsets.all(4),

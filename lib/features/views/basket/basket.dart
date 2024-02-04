@@ -6,6 +6,7 @@ import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 
 class Basket extends StatelessWidget {
   const Basket({Key? key}) : super(key: key);
@@ -28,16 +29,9 @@ class Basket extends StatelessWidget {
           child: SizedBox(
             width: 1000,
             height: 18,
-            child: Text(
-              'Очистить',
-              style: TextStyle(
-                color: Color(0xFFED2929),
-                fontFamily: 'TTNormsPro',
-                fontSize: 18.0,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w500,
-                height: 1.0,
-              ),
+            child: Icon(
+              Iconsax.trash,
+              color: Colors.red,
             ),
           ),
         ),
@@ -131,7 +125,7 @@ class Basket extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 380),
+                          const SizedBox(height: 250),
                           SizedBox(
                             width: 343,
                             height: 54,

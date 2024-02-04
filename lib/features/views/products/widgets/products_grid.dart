@@ -69,7 +69,7 @@ class ProductsGrid extends StatelessWidget {
                                       height: 1.0,
                                     ),
                                   ),
-                                  const SizedBox(height: 24),
+                                  const SizedBox(height: 20),
                                   Row(
                                     children: [
                                       Text(

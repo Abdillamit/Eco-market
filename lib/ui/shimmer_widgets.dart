@@ -17,7 +17,8 @@ class ShimmerImg extends StatelessWidget {
       baseColor: baseColor,
       highlightColor: highlightColor,
       child: Container(
-        margin: const EdgeInsets.all(8),
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: const Color.fromARGB(255, 248, 248, 248),
@@ -41,13 +42,18 @@ class ShimmerGrid extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 0.7,
+            childAspectRatio: 0.8,
             crossAxisCount: 2,
           ),
           itemBuilder: (context, index) {
-            return ShimmerImg(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
+            return Container(
+              margin: const EdgeInsets.all(8),
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: const Color.fromARGB(255, 248, 248, 248),
+              ),
             );
           },
         ),

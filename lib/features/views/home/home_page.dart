@@ -12,26 +12,27 @@ class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  late CategoryBloc _CategoryBloc;
+  late CategoryBloc _categoryBloc;
   late PageController _pageController;
   int currentPageIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _CategoryBloc = CategoryBloc(ApiCategoryList());
-    _CategoryBloc.add(LoadCategoriesEvent());
+    _categoryBloc = CategoryBloc(ApiCategoryList());
+    _categoryBloc.add(LoadCategoriesEvent());
 
     _pageController = PageController(initialPage: currentPageIndex);
   }
 
   @override
   void dispose() {
-    _CategoryBloc.close();
+    _categoryBloc.close();
     _pageController.dispose();
     super.dispose();
   }
@@ -74,7 +75,7 @@ class _HomeState extends State<Home> {
         onSelectTab: (index) {
           _pageController.animateToPage(
             index,
-            duration: const Duration(milliseconds: 100),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
           );
         },
