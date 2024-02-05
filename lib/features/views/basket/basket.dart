@@ -6,7 +6,6 @@ import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax/iconsax.dart';
 
 class Basket extends StatelessWidget {
   const Basket({Key? key}) : super(key: key);
@@ -25,16 +24,8 @@ class Basket extends StatelessWidget {
             height: 1.0,
           ),
         ),
-        leading: const Center(
-          child: SizedBox(
-            width: 1000,
-            height: 18,
-            child: Icon(
-              Iconsax.trash,
-              color: Colors.red,
-            ),
-          ),
-        ),
+        leadingWidth: 100,
+        leading: const Text('Очистить'),
         centerTitle: true,
       ),
       body: Column(
@@ -66,13 +57,25 @@ class Basket extends StatelessWidget {
                   children: [
                     CardBasket(cartItems: state.cartItems),
                     Container(
-                      padding: const EdgeInsets.only(right: 16, left: 16),
+                      padding:
+                          const EdgeInsets.only(right: 16, top: 20, left: 16),
                       child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text('Сумма'),
+                              const Text(
+                                'Сумма',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(172, 171, 173, 1),
+                                  textBaseline: TextBaseline.ideographic,
+                                  fontFamily: 'TTNormsPro',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.1875,
+                                  letterSpacing: 0,
+                                ),
+                              ),
                               Text(
                                 calculateTotalSum(state.cartItems),
                                 style: const TextStyle(
@@ -91,7 +94,18 @@ class Basket extends StatelessWidget {
                           const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Доставка'),
+                              Text(
+                                'Доставка',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(172, 171, 173, 1),
+                                  textBaseline: TextBaseline.ideographic,
+                                  fontFamily: 'TTNormsPro',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.1875,
+                                  letterSpacing: 0,
+                                ),
+                              ),
                               Text(
                                 '150 с',
                                 style: TextStyle(
@@ -110,7 +124,18 @@ class Basket extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text('Итого'),
+                              const Text(
+                                'Итого',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(172, 171, 173, 1),
+                                  textBaseline: TextBaseline.ideographic,
+                                  fontFamily: 'TTNormsPro',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.1875,
+                                  letterSpacing: 0,
+                                ),
+                              ),
                               Text(
                                 calculateTotalAmount(state.cartItems),
                                 style: const TextStyle(
@@ -125,7 +150,7 @@ class Basket extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 250),
+                          const SizedBox(height: 320),
                           SizedBox(
                             width: 343,
                             height: 54,

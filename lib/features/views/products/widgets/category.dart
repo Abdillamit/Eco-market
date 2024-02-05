@@ -11,9 +11,7 @@ class CategoryBar extends StatelessWidget {
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
         if (state is LoadingState) {
-          return const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(Colors.red),
-          );
+          return const CircularProgressIndicator();
         } else if (state is LoadedState) {
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -21,7 +19,7 @@ class CategoryBar extends StatelessWidget {
               children: List.generate(state.categories.length, (i) {
                 final isActive = i == state.selectedCategoryIndex;
 
-                return GestureDetector(
+                return GestureDetector( 
                   onTap: () {
                     context.read<CategoryBloc>().add(SelectCategoryEvent(i));
                     context.read<ProductsBloc>().add(

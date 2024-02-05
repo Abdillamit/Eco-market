@@ -58,8 +58,8 @@ class Info extends StatelessWidget {
                           ATexts.infoSubText,
                           style: TextStyle(
                             color: Color(0xFFACABAD),
-                            fontFamily: 'TT Norms Pro',
-                            fontSize: 16,
+                            fontFamily: 'TTNormsPro',
+                            fontSize: 16.0,
                             fontStyle: FontStyle.normal,
                             fontWeight: FontWeight.w400,
                             height: 1.0,

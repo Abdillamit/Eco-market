@@ -83,12 +83,6 @@ class ProductCart extends StatelessWidget {
                           onPressed: () {
                             final cartBloc = context.read<CartBloc>();
                             cartBloc.add(AddToCart(product));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Product added to cart'),
-                                duration: Duration(seconds: 2),
-                              ),
-                            );
                           },
                           buttonText: ATexts.productCardTitle,
                         ),

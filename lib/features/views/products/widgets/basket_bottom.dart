@@ -26,7 +26,7 @@ class BasketBottom extends StatelessWidget {
                       ATexts.basketEptyTitle,
                       style: TextStyle(
                         color: Color(0xFFACABAD),
-                        fontFamily: 'Poppins',
+                        fontFamily: 'TTNormsPro',
                         fontSize: 17.6,
                         fontStyle: FontStyle.normal,
                         fontWeight: FontWeight.w600,
@@ -36,8 +36,7 @@ class BasketBottom extends StatelessWidget {
                   ],
                 ),
               );
-            }
-            else {
+            } else {
               return Column(
                 children: [
                   CardBasket(
@@ -54,7 +53,6 @@ class BasketBottom extends StatelessWidget {
                             const Text('Сумма'),
                             Text(
                               calculateTotalSum(state.cartItems),
-                              // state.cartItems[index].totalSum ,
                               style: const TextStyle(
                                 color: Colors.black,
                                 textBaseline: TextBaseline.ideographic,
