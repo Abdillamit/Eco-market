@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eco_market/features/views/products/widgets/card.dart';
 import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/ui/button.dart';
+import 'package:eco_market/ui/shimmer_widgets.dart';
 import 'package:eco_market/utils/constants/sizes.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
@@ -40,16 +42,21 @@ class ProductsGrid extends StatelessWidget {
                         margin: const EdgeInsets.all(10),
                         child: Column(
                           children: [
-                            Container(
+                            SizedBox(
                               width: double.infinity,
                               height: 208.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: const Color(0xFFF8F8F8),
-                                image: DecorationImage(
-                                  image: NetworkImage(products[index].image ??
-                                      'placeholder_url'),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: CachedNetworkImage(
+                                  imageUrl: products[index].image ??
+                                      'placeholder_url',
                                   fit: BoxFit.cover,
+                                  placeholder: (context, url) => ShimmerImg(
+                                    baseColor:
+                                        Colors.grey[500] ?? Colors.grey[300]!,
+                                    highlightColor:
+                                        Colors.grey[150] ?? Colors.grey[100]!,
+                                  ),
                                 ),
                               ),
                             ),
@@ -104,7 +111,7 @@ class ProductsGrid extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 24),
                                   SizedBox(
-                                    width: 350,
+                                    width: double.infinity,
                                     height: 54,
                                     child: CustomButton(
                                       onPressed: () {},

@@ -12,7 +12,10 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       emit(LoadingStateProducts());
       try {
         final products = await api.getProducts(event.categoryName);
-        emit(LoadedStateProducts(products));
+        emit(LoadedStateProducts(products.map((e) {
+          e.quantity = 0;
+          return e;
+        }).toList()));
       } catch (error) {
         emit(ErrorStateProducts(error.toString()));
       }

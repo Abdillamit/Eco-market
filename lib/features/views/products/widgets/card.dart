@@ -76,7 +76,7 @@ class ProductCart extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    if (product.quantity! <= 1)
+                    if (product.quantity! == 0)
                       SizedBox(
                         width: 158,
                         child: CustomButton(

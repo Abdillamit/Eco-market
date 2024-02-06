@@ -11,7 +11,7 @@ part 'basket_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartState([])) {
-    on<CartEvent>(_mapEventToState);
+    on<AddToCart>(_mapEventToState);
     on<IncrimentProduct>(_incrementEvent);
     on<DecrementProduct>(_decrementEvent);
   }
@@ -35,6 +35,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
               (updatedCart[existingProductIndex].quantity ?? 0) * priceValue;
         }
       } else {
+        event.products.quantity = 1;
         updatedCart.add(event.products);
       }
 
@@ -46,19 +47,28 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Future<void> _incrementEvent(
       IncrimentProduct event, Emitter<CartState> emit) async {
     final updatedCart = List<Products>.from(state.cartItems);
-    final existingProductIndex =
-        updatedCart.indexWhere((product) => product.id == event.products.id);
+      final existingProductIndex =
+          updatedCart.indexWhere((product) => product.id == event.products.id);
 
-    if (existingProductIndex != -1) {
-      updatedCart[existingProductIndex].quantity =
-          updatedCart[existingProductIndex].quantity! + 1;
-    } else {
-      updatedCart.add(event.products);
+      if (existingProductIndex != -1) {
+        String? price = updatedCart[existingProductIndex].price;
+
+        if (price != null) {
+          double priceValue = double.tryParse(price) ?? 0.0;
+
+          updatedCart[existingProductIndex].quantity =
+              (updatedCart[existingProductIndex].quantity ?? 0) + 1;
+          updatedCart[existingProductIndex].totalSum =
+              (updatedCart[existingProductIndex].quantity ?? 0) * priceValue;
+        }
+      } else {
+        event.products.quantity = 1;
+        updatedCart.add(event.products);
+      }
+
+      _saveCartToPrefs(updatedCart);
+      emit(CartState(updatedCart));
     }
-
-    _saveCartToPrefs(updatedCart);
-    emit(CartState(updatedCart));
-  }
 
   Future<void> _decrementEvent(
       DecrementProduct event, Emitter<CartState> emit) async {
