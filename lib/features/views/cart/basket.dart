@@ -1,5 +1,5 @@
-import 'package:eco_market/features/views/basket/bloc/basket_bloc.dart';
-import 'package:eco_market/features/views/basket/widgets/card.dart';
+import 'package:eco_market/features/views/cart/bloc/cart_bloc.dart';
+import 'package:eco_market/features/views/cart/widgets/card.dart';
 import 'package:eco_market/ui/button.dart';
 import 'package:eco_market/utils/constants/image_strings.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
@@ -25,7 +25,15 @@ class Basket extends StatelessWidget {
           ),
         ),
         leadingWidth: 100,
-        leading: const Text('Очистить'),
+        leading: SizedBox(
+          height: 15,
+          child: CustomButton(
+            onPressed: () {},
+            buttonColor: Colors.white,
+            textColor: Colors.red,
+            buttonText: 'Очистить',
+          ),
+        ),
         centerTitle: true,
       ),
       body: Column(

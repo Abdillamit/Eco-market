@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
     this.icon,
   }) : super(key: key);
 
-  static const EdgeInsetsGeometry buttonPadding = EdgeInsets.all(10.0);
+  static const EdgeInsetsGeometry buttonPadding = EdgeInsets.all(6.0);
 
   final VoidCallback onPressed;
   final String? buttonText;

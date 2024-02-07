@@ -22,7 +22,6 @@ class ApiProductsList {
         throw Exception('Failed to load data: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error while fetching products: $error');
       return [];
     }
   }
@@ -44,7 +43,6 @@ class ApiProductsList {
         throw Exception('Failed to load data: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error while fetching products: $error');
       return [];
     }
   }

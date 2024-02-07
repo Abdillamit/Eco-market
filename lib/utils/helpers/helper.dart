@@ -14,7 +14,7 @@ String removeTrailingZeros(String price) {
 String calculateTotalSum(List<Products> cartItems) {
   double totalSum = 0.0;
   for (var item in cartItems) {
-    totalSum += item.totalSum??0;
+    totalSum += item.totalSum ?? 0;
   }
   return '${removeTrailingZeros(totalSum.toString())}c';
 }
@@ -22,8 +22,8 @@ String calculateTotalSum(List<Products> cartItems) {
 String calculateTotalAmount(List<Products> cartItems) {
   double totalSum = 0.0;
   for (var item in cartItems) {
-    totalSum += double.tryParse(item.price ?? '0.0') ?? 0.0;
+    totalSum += item.totalSum ?? 0;
   }
   totalSum += 150;
-  return '${removeTrailingZeros(totalSum.toString())}c';
+  return '${removeTrailingZeros(totalSum.toString())} c';
 }

@@ -1,4 +1,4 @@
-import 'package:eco_market/features/views/basket/basket.dart';
+import 'package:eco_market/features/views/cart/basket.dart';
 import 'package:eco_market/features/views/info/info_page.dart';
 import 'package:eco_market/features/views/story/story.dart';
 import 'package:flutter/material.dart';

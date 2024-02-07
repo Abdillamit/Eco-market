@@ -1,9 +1,8 @@
-import 'package:eco_market/features/views/basket/bloc/basket_bloc.dart';
+import 'package:eco_market/features/views/cart/bloc/cart_bloc.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
 import 'package:eco_market/features/views/products/widgets/basket_bottom.dart';
 import 'package:eco_market/features/views/products/widgets/category.dart';
 import 'package:eco_market/features/views/products/widgets/products_grid.dart';
-import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/ui/input.dart';
 import 'package:eco_market/ui/shimmer_widgets.dart';
 import 'package:eco_market/utils/constants/sizes.dart';
@@ -90,7 +89,7 @@ class ProductsPage extends StatelessWidget {
                 );
               },
               child: Container(
-                width: 168,
+                width: 170,
                 height: 48,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
@@ -101,7 +100,7 @@ class ProductsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.shopping_basket, color: Colors.white),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 5),
                     const Text(
                       ATexts.basketTitle,
                       style: TextStyle(
@@ -117,9 +116,8 @@ class ProductsPage extends StatelessWidget {
                     BlocBuilder<CartBloc, CartState>(
                       builder: (context, state) {
                         if (state.cartItems.isNotEmpty) {
-                          Products product = state.cartItems[0];
                           return Text(
-                            '${(removeTrailingZeros(product.price ?? 'error'))} c',
+                            calculateTotalAmount(state.cartItems),
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'TT Norms Pro',

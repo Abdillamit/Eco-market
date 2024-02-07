@@ -19,7 +19,6 @@ class ApiCategoryList {
         throw Exception('Failed to load data: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error while fetching categories: $error');
       return [];
     }
   }

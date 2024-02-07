@@ -9,7 +9,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   final ApiProductsList api;
   ProductsBloc(this.api) : super(const LoadingStateProducts()) {
     on<FilterProductsByCategory>((event, emit) async {
-      emit(LoadingStateProducts());
+      emit(const LoadingStateProducts());
       try {
         final products = await api.getProducts(event.categoryName);
         emit(LoadedStateProducts(products.map((e) {

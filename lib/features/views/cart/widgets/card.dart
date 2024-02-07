@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:eco_market/features/views/basket/bloc/basket_bloc.dart';
+import 'package:eco_market/features/views/cart/bloc/cart_bloc.dart';
 import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
-// ignore: must_be_immutable
 class CardBasket extends StatefulWidget {
   final List<Products> cartItems;
   const CardBasket({
@@ -64,10 +63,19 @@ class _CardBasketState extends State<CardBasket> {
                                   color: const Color.fromRGBO(248, 248, 248, 1),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: const Icon(
-                                  Iconsax.trash,
-                                  color: Colors.red,
-                                  size: 24.0,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.read<CartBloc>().add(
+                                          DeleteProduct(
+                                            widget.cartItems[index],
+                                          ),
+                                        );
+                                  },
+                                  child: const Icon(
+                                    Iconsax.trash,
+                                    color: Colors.red,
+                                    size: 24.0,
+                                  ),
                                 ),
                               )),
                         ],
@@ -135,7 +143,7 @@ class _CardBasketState extends State<CardBasket> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(3),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 color: const Color(0xFF75DB1B),
@@ -158,7 +166,7 @@ class _CardBasketState extends State<CardBasket> {
                             Text('${widget.cartItems[index].quantity}'),
                             const SizedBox(width: 5),
                             Container(
-                              padding: const EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(3),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 color: const Color(0xFF75DB1B),
