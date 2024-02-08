@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eco_market/features/views/cart/bloc/cart_bloc.dart';
 import 'package:eco_market/features/views/products/widgets/card.dart';
 import 'package:eco_market/modules/products_list.dart';
 import 'package:eco_market/ui/button.dart';
@@ -7,6 +8,7 @@ import 'package:eco_market/utils/constants/sizes.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsGrid extends StatelessWidget {
   final List<Products> products;
@@ -20,7 +22,7 @@ class ProductsGrid extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 0.7,
+          childAspectRatio: 0.8,
           crossAxisCount: 2,
         ),
         itemBuilder: (context, index) => InkWell(
@@ -110,14 +112,94 @@ class ProductsGrid extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 24),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 54,
-                                    child: CustomButton(
-                                      onPressed: () {},
-                                      buttonText: ATexts.productCardTitle,
-                                    ),
-                                  )
+                                  BlocBuilder<CartBloc, CartState>(
+                                      builder: (context, state) {
+                                    int quantity = 0;
+                                    for (int i = 0;
+                                        i < state.cartItems.length;
+                                        i++) {
+                                      if (state.cartItems[i].id ==
+                                          products[index].id) {
+                                        quantity =
+                                            state.cartItems[i].quantity ?? 0;
+                                      }
+                                    }
+                                    return quantity != 0
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(3),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  color:
+                                                      const Color(0xFF75DB1B),
+                                                ),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    context
+                                                        .read<CartBloc>()
+                                                        .add(
+                                                          DecrementProduct(
+                                                            products[index],
+                                                          ),
+                                                        );
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.remove,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 15),
+                                              Text(
+                                                  '${products[index].quantity}'),
+                                              const SizedBox(width: 15),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(3),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  color:
+                                                      const Color(0xFF75DB1B),
+                                                ),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    context
+                                                        .read<CartBloc>()
+                                                        .add(
+                                                          IncrimentProduct(
+                                                            products[index],
+                                                          ),
+                                                        );
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.add,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : SizedBox(
+                                            width: double.infinity,
+                                            height: 54,
+                                            child: CustomButton(
+                                              onPressed: () {
+                                                final cartBloc =
+                                                    context.read<CartBloc>();
+                                                cartBloc.add(
+                                                    AddToCart(products[index]));
+                                              },
+                                              buttonText:
+                                                  ATexts.productCardTitle,
+                                            ),
+                                          );
+                                  })
                                 ],
                               ),
                             ),

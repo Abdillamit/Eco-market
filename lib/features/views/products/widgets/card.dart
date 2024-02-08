@@ -88,7 +88,7 @@ class ProductCart extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(3),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     color: const Color(0xFF75DB1B),
@@ -111,7 +111,7 @@ class ProductCart extends StatelessWidget {
                                 Text('${product.quantity}'),
                                 const SizedBox(width: 15),
                                 Container(
-                                  padding: const EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(3),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     color: const Color(0xFF75DB1B),
@@ -133,7 +133,8 @@ class ProductCart extends StatelessWidget {
                               ],
                             )
                           : SizedBox(
-                              width: 158,
+                              width: double.infinity,
+                              height: 30,
                               child: CustomButton(
                                 onPressed: () {
                                   final cartBloc = context.read<CartBloc>();

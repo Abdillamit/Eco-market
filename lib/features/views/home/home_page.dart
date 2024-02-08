@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
         onSelectTab: (index) {
           _pageController.animateToPage(
             index,
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 3),
             curve: Curves.easeInOut,
           );
         },

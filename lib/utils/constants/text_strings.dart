@@ -17,12 +17,16 @@ class ATexts {
   // Products Card Texts
   static const String productCardTitle = "Добавить";
   static const String basketButtonText = "Оформить заказ";
+  static const String basketButtonText2 = "Перейти в магазин";
 
   //  Card Texts
   static const String basketTitle = "Корзина";
 
   // Bsket Epty
   static const String basketEptyTitle = 'У вас нет заказа';
+  static const String basketModalText =
+      'Заказ может быть при покупке свыше 300 с';
+  static const String basketModalButtonText = 'Закрыть';
 
   // Info Text
   static const String infoSubText =

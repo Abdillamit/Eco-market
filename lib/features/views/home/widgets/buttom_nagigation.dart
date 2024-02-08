@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
+import 'package:iconsax/iconsax.dart';
 
 class NavigationExample extends StatefulWidget {
   final int currentIndex;
@@ -24,19 +25,19 @@ class _NavigationExampleState extends State<NavigationExample> {
       currentIndex: widget.currentIndex,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_filled),
+          icon: Icon(Iconsax.home),
           label: ATexts.bottomTitle1,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.badge),
+          icon: Icon(Iconsax.shopping_cart),
           label: ATexts.bottomTitle2,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.lock_clock),
+          icon: Icon(Iconsax.story5),
           label: ATexts.bottomTitle3,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.question_mark_rounded),
+          icon: Icon(Iconsax.information),
           label: ATexts.bottomTitle4,
         ),
       ],

@@ -1,5 +1,6 @@
 import 'package:eco_market/features/views/home/bloc/category_bloc.dart';
 import 'package:eco_market/features/views/products/bloc/products_bloc.dart';
+import 'package:eco_market/ui/shimmer_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +12,10 @@ class CategoryBar extends StatelessWidget {
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
         if (state is LoadingState) {
-          return const CircularProgressIndicator();
+          return ShimmerImg(
+            baseColor: Colors.grey[500] ?? Colors.grey[300]!,
+            highlightColor: Colors.grey[150] ?? Colors.grey[100]!,
+          );
         } else if (state is LoadedState) {
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -20,7 +24,6 @@ class CategoryBar extends StatelessWidget {
                 state.categories.length,
                 (i) {
                   final isActive = i == state.selectedCategoryIndex;
-                  // if (i > 0 && i <= state.categories.length) {
                   return GestureDetector(
                     onTap: () {
                       context.read<CategoryBloc>().add(SelectCategoryEvent(i));
@@ -62,52 +65,6 @@ class CategoryBar extends StatelessWidget {
                       ),
                     ),
                   );
-                  // } else if (i == 0) {
-                  //   return GestureDetector(
-                  //     onTap: () {},
-                  //     child: Container(
-                  //       margin: const EdgeInsets.all(8),
-                  //       padding: const EdgeInsets.symmetric(
-                  //         vertical: 10,
-                  //         horizontal: 18,
-                  //       ),
-                  //       decoration: BoxDecoration(
-                  //         color:
-                  //             isActive ? const Color(0xFF75DB1B) : Colors.white,
-                  //         borderRadius: BorderRadius.circular(18),
-                  //         boxShadow: const [
-                  //           BoxShadow(
-                  //             blurRadius: 1.0,
-                  //             color: Color.fromRGBO(210, 209, 213, 1.0),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       child: Text(
-                  //         'Все',
-                  //         style: TextStyle(
-                  //           color: isActive
-                  //               ? Colors.white
-                  //               : const Color.fromRGBO(210, 209, 213, 1.0),
-                  //           fontFamily: 'TTNormsPro',
-                  //           fontSize: 16.0,
-                  //           fontStyle: FontStyle.normal,
-                  //           fontWeight: FontWeight.w500,
-                  //           height: 1.0,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   );
-                  // } else {
-                  //   return Container(
-                  //     margin: const EdgeInsets.all(8),
-                  //     child: Text(
-                  //       'Category not found',
-                  //       style: TextStyle(
-                  //         color: Colors.red,
-                  //       ),
-                  //     ),
-                  //   );
-                  // }
                 },
               ),
             ),

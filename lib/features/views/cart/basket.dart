@@ -1,5 +1,7 @@
 import 'package:eco_market/features/views/cart/bloc/cart_bloc.dart';
 import 'package:eco_market/features/views/cart/widgets/card.dart';
+import 'package:eco_market/features/views/cart/widgets/modal.dart';
+import 'package:eco_market/features/views/home/home_page.dart';
 import 'package:eco_market/ui/button.dart';
 import 'package:eco_market/utils/constants/image_strings.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
@@ -44,19 +46,42 @@ class Basket extends StatelessWidget {
                 return Center(
                   child: Column(
                     children: [
-                      Image.asset(AImages.emptyBasket),
-                      const SizedBox(height: 16),
-                      const Text(
-                        ATexts.basketEptyTitle,
-                        style: TextStyle(
-                          color: Color(0xFFACABAD),
-                          fontFamily: 'Poppins',
-                          fontSize: 17.6,
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: -0.168,
+                      Container(
+                        padding: const EdgeInsets.only(top: 100),
+                        child: Column(
+                          children: [
+                            Image.asset(AImages.emptyBasket),
+                            const SizedBox(height: 16),
+                            const Text(
+                              ATexts.basketEptyTitle,
+                              style: TextStyle(
+                                color: Color(0xFFACABAD),
+                                fontFamily: 'Poppins',
+                                fontSize: 17.6,
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: -0.168,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
+                      const SizedBox(height: 250),
+                      SizedBox(
+                        width: 343,
+                        height: 54,
+                        child: CustomButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Home(),
+                              ),
+                            );
+                          },
+                          buttonText: ATexts.basketButtonText2,
+                        ),
+                      )
                     ],
                   ),
                 );
@@ -163,7 +188,11 @@ class Basket extends StatelessWidget {
                             width: 343,
                             height: 54,
                             child: CustomButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => const Modal());
+                              },
                               buttonText: ATexts.basketButtonText,
                             ),
                           )
