@@ -108,7 +108,7 @@ class ProductCart extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(width: 15),
-                                Text('${product.quantity}'),
+                                Text('$quantity'),
                                 const SizedBox(width: 15),
                                 Container(
                                   padding: const EdgeInsets.all(3),

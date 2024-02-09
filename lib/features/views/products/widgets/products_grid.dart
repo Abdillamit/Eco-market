@@ -41,7 +41,8 @@ class ProductsGrid extends StatelessWidget {
                     return SingleChildScrollView(
                       controller: scrollController,
                       child: Container(
-                        margin: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(
+                            right: 10, left: 10, bottom: 10),
                         child: Column(
                           children: [
                             SizedBox(
@@ -129,6 +130,7 @@ class ProductsGrid extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,
                                             children: [
+                                              Text( '${(productPrice(products[index].price ?? 'error'))}c',),
                                               Container(
                                                 padding:
                                                     const EdgeInsets.all(3),
@@ -156,7 +158,7 @@ class ProductsGrid extends StatelessWidget {
                                               ),
                                               const SizedBox(width: 15),
                                               Text(
-                                                  '${products[index].quantity}'),
+                                                  '$quantity'),
                                               const SizedBox(width: 15),
                                               Container(
                                                 padding:

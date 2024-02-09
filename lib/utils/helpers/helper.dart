@@ -27,3 +27,9 @@ String calculateTotalAmount(List<Products> cartItems) {
   totalSum += 150;
   return '${removeTrailingZeros(totalSum.toString())} c';
 }
+
+String productPrice(String price) {
+  double totalSum = double.tryParse(price) ?? 0;
+  
+  return '${removeTrailingZeros(totalSum.toString())} c';
+}

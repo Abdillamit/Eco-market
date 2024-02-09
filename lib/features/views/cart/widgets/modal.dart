@@ -17,7 +17,6 @@ class Modal extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
@@ -43,7 +42,9 @@ class Modal extends StatelessWidget {
               width: double.infinity,
               height: 54,
               child: CustomButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
                 buttonText: ATexts.basketModalButtonText,
               ),
             )
