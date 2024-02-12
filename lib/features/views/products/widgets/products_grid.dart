@@ -130,7 +130,9 @@ class ProductsGrid extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,
                                             children: [
-                                              Text( '${(productPrice(products[index].price ?? 'error'))}c',),
+                                              Text(
+                                                (productPrice(products[index].price ?? 'error')),
+                                              ),
                                               Container(
                                                 padding:
                                                     const EdgeInsets.all(3),
@@ -157,8 +159,7 @@ class ProductsGrid extends StatelessWidget {
                                                 ),
                                               ),
                                               const SizedBox(width: 15),
-                                              Text(
-                                                  '$quantity'),
+                                              Text('$quantity'),
                                               const SizedBox(width: 15),
                                               Container(
                                                 padding:
