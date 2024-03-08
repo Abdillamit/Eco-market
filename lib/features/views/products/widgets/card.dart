@@ -14,141 +14,138 @@ class ProductCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(4),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: const Color(0xFFF8F8F8),
         ),
-        child: Container(
-          padding: const EdgeInsets.all(3),
-          child: Column(
-            children: [
-              SizedBox(
-                width: 166.0,
-                height: 100.0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: CachedNetworkImage(
-                    imageUrl: product.image ?? 'placeholder_url',
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => ShimmerImg(
-                      baseColor: Colors.grey[500] ?? Colors.grey[300]!,
-                      highlightColor: Colors.grey[150] ?? Colors.grey[100]!,
-                    ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+        padding: const EdgeInsets.all(3),
+        child: Column(
+          children: [
+            SizedBox(
+              width: 166.0,
+              height: 100.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: CachedNetworkImage(
+                  imageUrl: product.image ?? 'placeholder_url',
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => ShimmerImg(
+                    baseColor: Colors.grey[500] ?? Colors.grey[300]!,
+                    highlightColor: Colors.grey[150] ?? Colors.grey[100]!,
                   ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
-              const SizedBox(height: 4),
-              Padding(
-                padding: const EdgeInsets.all(4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.name ?? 'Unknown Product',
-                      style: const TextStyle(
-                        fontFamily: 'TTNormsPro',
-                        fontSize: 14.0,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.w500,
-                        height: 1.0,
-                      ),
+            ),
+            const SizedBox(height: 4),
+            Padding(
+              padding: const EdgeInsets.all(3),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name ?? 'Unknown Product',
+                    style: const TextStyle(
+                      fontFamily: 'TTNormsPro',
+                      fontSize: 14.0,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.w500,
+                      height: 1.0,
                     ),
-                    const SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Text(
-                          '${(removeTrailingZeros(product.price ?? 'error'))}c',
-                          style: const TextStyle(
-                            color: Color(0xFF75DB1B),
-                            textBaseline: TextBaseline.ideographic,
-                            fontFamily: 'TTNormsPro',
-                            fontSize: 20.0,
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.w700,
-                            height: 1.0,
-                          ),
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    children: [
+                      Text(
+                        '${(removeTrailingZeros(product.price ?? 'error'))}c',
+                        style: const TextStyle(
+                          color: Color(0xFF75DB1B),
+                          textBaseline: TextBaseline.ideographic,
+                          fontFamily: 'TTNormsPro',
+                          fontSize: 20.0,
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.w700,
+                          height: 1.0,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    BlocBuilder<CartBloc, CartState>(builder: (context, state) {
-                      int quantity = 0;
-                      for (int i = 0; i < state.cartItems.length; i++) {
-                        if (state.cartItems[i].id == product.id) {
-                          quantity = state.cartItems[i].quantity ?? 0;
-                        }
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+                    int quantity = 0;
+                    for (int i = 0; i < state.cartItems.length; i++) {
+                      if (state.cartItems[i].id == product.id) {
+                        quantity = state.cartItems[i].quantity ?? 0;
                       }
-                      return quantity != 0
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: const Color(0xFF75DB1B),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      context.read<CartBloc>().add(
-                                            DecrementProduct(
-                                              product,
-                                            ),
-                                          );
-                                    },
-                                    child: const Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                    ),
+                    }
+                    return quantity != 0
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: const Color(0xFF75DB1B),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.read<CartBloc>().add(
+                                          DecrementProduct(
+                                            product,
+                                          ),
+                                        );
+                                  },
+                                  child: const Icon(
+                                    Icons.remove,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                const SizedBox(width: 15),
-                                Text('$quantity'),
-                                const SizedBox(width: 15),
-                                Container(
-                                  padding: const EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: const Color(0xFF75DB1B),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      context.read<CartBloc>().add(
-                                            IncrimentProduct(
-                                              product,
-                                            ),
-                                          );
-                                    },
-                                    child: const Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          : SizedBox(
-                              width: double.infinity,
-                              height: 30,
-                              child: CustomButton(
-                                onPressed: () {
-                                  final cartBloc = context.read<CartBloc>();
-                                  cartBloc.add(AddToCart(product));
-                                },
-                                buttonText: ATexts.productCardTitle,
                               ),
-                            );
-                    })
-                  ],
-                ),
+                              const SizedBox(width: 15),
+                              Text('$quantity'),
+                              const SizedBox(width: 15),
+                              Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: const Color(0xFF75DB1B),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.read<CartBloc>().add(
+                                          IncrimentProduct(
+                                            product,
+                                          ),
+                                        );
+                                  },
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : SizedBox(
+                            width: double.infinity,
+                            height: 30,
+                            child: CustomButton(
+                              onPressed: () {
+                                final cartBloc = context.read<CartBloc>();
+                                cartBloc.add(AddToCart(product));
+                              },
+                              buttonText: ATexts.productCardTitle,
+                            ),
+                          );
+                  })
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

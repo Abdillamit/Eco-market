@@ -7,6 +7,7 @@ import 'package:eco_market/features/views/home/widgets/buttom_nagigation.dart';
 import 'package:eco_market/features/views/home/widgets/card.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/http/api_categorie_list.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -24,6 +25,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    FlutterNativeSplash.remove();
+
     _categoryBloc = CategoryBloc(ApiCategoryList());
     _categoryBloc.add(LoadCategoriesEvent());
 

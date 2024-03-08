@@ -8,6 +8,7 @@ import 'package:eco_market/utils/constants/sizes.dart';
 import 'package:eco_market/utils/constants/text_strings.dart';
 import 'package:eco_market/utils/helpers/helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsGrid extends StatelessWidget {
@@ -25,8 +26,9 @@ class ProductsGrid extends StatelessWidget {
           childAspectRatio: 0.8,
           crossAxisCount: 2,
         ),
-        itemBuilder: (context, index) => InkWell(
+        itemBuilder: (context, index) => GestureDetector(
           onTap: () {
+            HapticFeedback.lightImpact();
             showModalBottomSheet(
               context: context,
               isDismissible: true,
@@ -131,7 +133,9 @@ class ProductsGrid extends StatelessWidget {
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               Text(
-                                                (productPrice(products[index].price ?? 'error')),
+                                                (productPrice(
+                                                    products[index].price ??
+                                                        'error')),
                                               ),
                                               Container(
                                                 padding:
